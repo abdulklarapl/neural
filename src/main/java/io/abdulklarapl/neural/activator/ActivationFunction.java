@@ -1,7 +1,7 @@
 package io.abdulklarapl.neural.activator;
 
 /**
- * @author Patryk Szlagowski <patryksz@lnsova.pl>
+ * @author Patryk Szlagowski (abdulklarapl) <szlagowskipatryk@gmail.com>
  */
 public interface ActivationFunction {
 

@@ -2,7 +2,6 @@ package io.abdulklarapl.neural.element;
 
 import io.abdulklarapl.neural.activator.SigmoidActivationFunction;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
