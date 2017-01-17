@@ -1,5 +1,7 @@
 package io.abdulklarapl.neural.element;
 
+import io.abdulklarapl.neural.activator.ActivationFunction;
+
 import java.util.List;
 
 /**
@@ -7,11 +9,17 @@ import java.util.List;
  */
 public class Neuron {
 
-    private int id;
     private List<Synapse> synapses;
+    private ActivationFunction activationFunction;
+    private double output;
 
-    public Neuron(int id) {
-        this.id = id;
+    public Neuron(ActivationFunction activationFunction) {
+        this.activationFunction = activationFunction;
+    }
+
+    public Neuron(ActivationFunction activationFunction, double output) {
+        this.activationFunction = activationFunction;
+        this.output = output;
     }
 
     public List<Synapse> getSynapses() {
@@ -22,7 +30,19 @@ public class Neuron {
         this.synapses = synapses;
     }
 
-    public int getId() {
-        return id;
+    public void addSynapse(Synapse synapse) {
+        synapses.add(synapse);
+    }
+
+    public double getOutput() {
+        return output;
+    }
+
+    public void setOutput(double output) {
+        this.output = output;
+    }
+
+    public ActivationFunction getActivationFunction() {
+        return activationFunction;
     }
 }

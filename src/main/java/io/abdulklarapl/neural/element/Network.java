@@ -1,5 +1,7 @@
 package io.abdulklarapl.neural.element;
 
+import io.abdulklarapl.neural.activator.SigmoidActivationFunction;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,6 +27,10 @@ public class Network {
         return layers.subList(1, layers.size() - 1);
     }
 
+    public List<Layer> getLayers() {
+        return layers;
+    }
+
     public Network(String name, int inputSize) {
         this(name, inputSize, 1);
     }
@@ -35,9 +41,8 @@ public class Network {
             Layer layer = new Layer(index);
             layer.setNeurons(
                     IntStream.range(0, inputSize)
-                            .mapToObj(neuron -> new Neuron(neuron * index))
+                            .mapToObj(neuron -> new Neuron(new SigmoidActivationFunction()))
                             .collect(Collectors.toList())
-                    //@TODO set synapses with links
             );
             return layer;
         }).collect(Collectors.toList());

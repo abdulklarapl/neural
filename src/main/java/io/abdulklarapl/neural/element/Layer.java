@@ -9,6 +9,9 @@ public class Layer {
 
     private int id;
     private List<Neuron> neurons;
+    private Layer previous;
+    private Layer next;
+    private Neuron bias;
 
     public Layer(int id) {
         this.id = id;
@@ -27,6 +30,50 @@ public class Layer {
     }
 
     public void setNeurons(List<Neuron> neurons) {
-        this.neurons = neurons;
+        for (Neuron neuron : neurons) {
+            addNeuron(neuron);
+        }
+    }
+
+    public void addNeuron(Neuron neuron) {
+        if (previous != null) {
+            for (Neuron prevLayerNeuron : previous.getNeurons()) {
+                neuron.addSynapse(new Synapse(prevLayerNeuron));
+            }
+        }
+        neurons.add(neuron);
+    }
+
+    public void setBias(Neuron bias) {
+        this.bias = bias;
+        neurons.add(bias);
+    }
+
+    public Layer getPrevious() {
+        return previous;
+    }
+
+    public void setPrevious(Layer previous) {
+        this.previous = previous;
+    }
+
+    public Layer getNext() {
+        return next;
+    }
+
+    public void setNext(Layer next) {
+        this.next = next;
+    }
+
+    public boolean isInput() {
+        return previous == null;
+    }
+
+    public boolean isHidden() {
+        return previous != null && next != null;
+    }
+
+    public boolean isOutput() {
+        return next == null;
     }
 }
