@@ -31,10 +31,21 @@ public class Network {
         return layers;
     }
 
+    /**
+     * create network with given name, input size and one hidden layer
+     * @param name
+     * @param inputSize
+     */
     public Network(String name, int inputSize) {
         this(name, inputSize, 1);
     }
 
+    /**
+     * create network with given name, input size and number of hidden layers
+     * @param name
+     * @param inputSize
+     * @param hiddenLayers
+     */
     public Network(String name, int inputSize, int hiddenLayers) {
         this.name = name;
         layers = new ArrayList<>();
@@ -52,5 +63,18 @@ public class Network {
 
             layers.add(layer);
         });
+    }
+
+    /**
+     * process whole network calculation and get output for given input
+     * @return
+     */
+    public double[] process() {
+        double[] output = new double[getOutput().getNeurons().size()];
+        layers.stream().forEach(layer -> {
+            layer.process();
+        });
+
+        return getOutput().getNeurons().stream().mapToDouble(neuron -> neuron.getOutput()).toArray();
     }
 }

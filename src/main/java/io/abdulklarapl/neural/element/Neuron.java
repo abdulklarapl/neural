@@ -13,6 +13,8 @@ public class Neuron {
     private List<Synapse> synapses;
     private ActivationFunction activationFunction;
     private double output;
+    private double derivative;
+    private double sum;
 
     {
         synapses = new ArrayList<>();
@@ -49,5 +51,15 @@ public class Neuron {
 
     public ActivationFunction getActivationFunction() {
         return activationFunction;
+    }
+
+    public void activate() {
+        sum = 0;
+        synapses.forEach(synapse -> {
+            sum += synapse.getWeight() * synapse.getSource().getOutput();
+        });
+
+        output = activationFunction.activate(sum);
+        derivative = activationFunction.derivative(output);
     }
 }

@@ -81,4 +81,14 @@ public class Layer {
     public boolean isOutput() {
         return next == null;
     }
+
+    public void process() {
+        int start = 0;
+        if (bias != null) {
+            start = 1;
+        }
+        neurons.stream().skip(start).forEach(neuron -> {
+            neuron.activate();
+        });
+    }
 }
