@@ -12,10 +12,12 @@ public class DigitNeuralNetwork {
 
     public static void main(String[] args) {
         Network network = new Network("digit", 10);
-        for (Layer layer : network.getLayers()) {
+        network.getLayers().forEach(layer -> {
             if (!layer.isOutput()) {
                 layer.setBias(new Neuron(new LinearActivationFunction(), 1));
             }
-        }
+        });
+
+        return;
     }
 }

@@ -1,5 +1,6 @@
 package io.abdulklarapl.neural.element;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,6 +13,10 @@ public class Layer {
     private Layer previous;
     private Layer next;
     private Neuron bias;
+
+    {
+        neurons = new ArrayList<>();
+    }
 
     public Layer(int id) {
         this.id = id;

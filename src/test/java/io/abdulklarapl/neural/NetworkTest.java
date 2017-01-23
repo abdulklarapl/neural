@@ -24,6 +24,6 @@ public class NetworkTest {
 
         network.getInput().setBias(new Neuron(new LinearActivationFunction(), 1));
         List<Neuron> inputNeurons = network.getInput().getNeurons();
-        assertTrue(inputNeurons.get(inputNeurons.size()).getActivationFunction().getClass().equals(LinearActivationFunction.class));
+        assertTrue(inputNeurons.get(inputNeurons.size()-1).getActivationFunction().getClass().equals(LinearActivationFunction.class));
     }
 }

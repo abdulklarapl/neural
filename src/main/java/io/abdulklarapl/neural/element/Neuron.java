@@ -2,6 +2,7 @@ package io.abdulklarapl.neural.element;
 
 import io.abdulklarapl.neural.activator.ActivationFunction;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,6 +13,10 @@ public class Neuron {
     private List<Synapse> synapses;
     private ActivationFunction activationFunction;
     private double output;
+
+    {
+        synapses = new ArrayList<>();
+    }
 
     public Neuron(ActivationFunction activationFunction) {
         this.activationFunction = activationFunction;
