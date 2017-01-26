@@ -15,6 +15,7 @@ public class Neuron {
     private double output;
     private double derivative;
     private double sum;
+    private double error;
 
     {
         synapses = new ArrayList<>();
@@ -61,5 +62,17 @@ public class Neuron {
 
         output = activationFunction.activate(sum);
         derivative = activationFunction.derivative(output);
+    }
+
+    public double getDerivative() {
+        return derivative;
+    }
+
+    public void setError(double error) {
+        this.error = error;
+    }
+
+    public double getError() {
+        return error;
     }
 }

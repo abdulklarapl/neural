@@ -1,5 +1,6 @@
 package io.abdulklarapl.neural.element;
 
+import io.abdulklarapl.neural.activator.LinearActivationFunction;
 import io.abdulklarapl.neural.activator.SigmoidActivationFunction;
 
 import java.util.ArrayList;
@@ -37,7 +38,7 @@ public class Network {
      * @param inputSize
      */
     public Network(String name, int inputSize) {
-        this(name, inputSize, 1);
+        this(name, inputSize, 1, true);
     }
 
     /**
@@ -45,8 +46,9 @@ public class Network {
      * @param name
      * @param inputSize
      * @param hiddenLayers
+     * @param bias
      */
-    public Network(String name, int inputSize, int hiddenLayers) {
+    public Network(String name, int inputSize, int hiddenLayers, boolean bias) {
         this.name = name;
         layers = new ArrayList<>();
         IntStream.range(1, hiddenLayers+3).forEach(index -> {
@@ -62,6 +64,31 @@ public class Network {
             );
 
             layers.add(layer);
+        });
+
+        if (!bias) {
+            return;
+        }
+        layers.forEach(layer -> {
+            if (!layer.isOutput()) {
+                layer.setBias(new Neuron(new LinearActivationFunction(), 1));
+            }
+        });
+    }
+
+    /**
+     * fill input layer with data
+     *
+     * @param input
+     * @throws Exception
+     */
+    public void input(double[] input) throws Exception {
+        if (input.length != getInput().getNeurons().size()) {
+            throw new Exception("Wrong number of inputs. Expected elements: "+getInput().getNeurons().size());
+        }
+
+        IntStream.range(0, input.length).forEach(in -> {
+            getInput().getNeurons().get(in).setOutput(input[in]);
         });
     }
 
