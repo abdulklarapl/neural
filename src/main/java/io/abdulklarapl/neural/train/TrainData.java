@@ -5,19 +5,19 @@ package io.abdulklarapl.neural.train;
  */
 public class TrainData {
 
-    private double[][] input;
-    private double[][] output;
+    private double[] input;
+    private double[] output;
 
-    public TrainData(double[][] input, double[][] output) {
+    public TrainData(double[] input, double[] output) {
         this.input = input;
         this.output = output;
     }
 
-    public double[][] getInput() {
+    public double[] getInput() {
         return input;
     }
 
-    public double[][] getOutput() {
+    public double[] getOutput() {
         return output;
     }
 }

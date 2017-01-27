@@ -9,7 +9,7 @@ public class DigitNeuralNetwork {
 
     public static void main(String[] args) throws Exception {
         double[] input = {0};
-        Network network = new Network("digit", 25*25);
+        Network network = new Network("digit", 25*25, 10); // digit network - input = rows*cols, output size = 10 digits
         network.input(input);
         double[] output = network.process();
         int found = 0;

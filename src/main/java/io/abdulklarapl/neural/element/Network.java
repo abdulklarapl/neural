@@ -21,7 +21,7 @@ public class Network {
     }
 
     public Layer getOutput() {
-        return layers.get(layers.size());
+        return layers.get(layers.size()-1);
     }
 
     public List<Layer> getHiddenLayers() {
@@ -37,8 +37,8 @@ public class Network {
      * @param name
      * @param inputSize
      */
-    public Network(String name, int inputSize) {
-        this(name, inputSize, 1, true);
+    public Network(String name, int inputSize, int outputSize) {
+        this(name, inputSize, outputSize, 1, true);
     }
 
     /**
@@ -48,7 +48,7 @@ public class Network {
      * @param hiddenLayers
      * @param bias
      */
-    public Network(String name, int inputSize, int hiddenLayers, boolean bias) {
+    public Network(String name, int inputSize, int outputSize, int hiddenLayers, boolean bias) {
         this.name = name;
         layers = new ArrayList<>();
         IntStream.range(1, hiddenLayers+3).forEach(index -> {
@@ -57,13 +57,24 @@ public class Network {
                 layer.setPrevious(layers.get(index-2));
             } catch (Exception e) {}
 
+            int size = inputSize;
+            if (index == hiddenLayers+2) {
+                size = outputSize;
+            }
             layer.setNeurons(
-                    IntStream.range(0, inputSize)
+                    IntStream.range(0, size)
                             .mapToObj(neuron -> new Neuron(new SigmoidActivationFunction()))
                             .collect(Collectors.toList())
             );
 
             layers.add(layer);
+        });
+
+        IntStream.range(0, layers.size()).forEach(index -> {
+            if (index == layers.size()-1) {
+                return;
+            }
+            layers.get(index).setNext(layers.get(index+1));
         });
 
         if (!bias) {
@@ -83,8 +94,12 @@ public class Network {
      * @throws Exception
      */
     public void input(double[] input) throws Exception {
-        if (input.length != getInput().getNeurons().size()) {
-            throw new Exception("Wrong number of inputs. Expected elements: "+getInput().getNeurons().size());
+        int targetSize = getInput().getNeurons().size();
+        if (getInput().hasBias()) {
+            targetSize -= 1;
+        }
+        if (input.length != targetSize) {
+            throw new Exception("Wrong number of inputs. Expected elements: "+targetSize+" but given: "+input.length);
         }
 
         IntStream.range(0, input.length).forEach(in -> {

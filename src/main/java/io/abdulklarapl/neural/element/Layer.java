@@ -91,4 +91,8 @@ public class Layer {
             neuron.activate();
         });
     }
+
+    public boolean hasBias() {
+        return bias != null;
+    }
 }
