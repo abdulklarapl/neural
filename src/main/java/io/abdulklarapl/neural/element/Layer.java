@@ -1,12 +1,14 @@
 package io.abdulklarapl.neural.element;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Patryk Szlagowski (abdulklarapl) <szlagowskipatryk@gmail.com>
  */
-public class Layer {
+public class Layer implements Serializable {
 
     private int id;
     private List<Neuron> neurons;
@@ -94,5 +96,9 @@ public class Layer {
 
     public boolean hasBias() {
         return bias != null;
+    }
+
+    public String getStamp() {
+        return neurons.stream().map(neuron -> String.valueOf(neuron.getOutput())).collect(Collectors.joining(""));
     }
 }

@@ -2,13 +2,14 @@ package io.abdulklarapl.neural.element;
 
 import io.abdulklarapl.neural.activator.ActivationFunction;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author Patryk Szlagowski (abdulklarapl) <szlagowskipatryk@gmail.com>
  */
-public class Neuron {
+public class Neuron implements Serializable {
 
     private List<Synapse> synapses;
     private ActivationFunction activationFunction;

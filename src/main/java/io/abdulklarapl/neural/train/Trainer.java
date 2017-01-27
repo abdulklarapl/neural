@@ -48,7 +48,7 @@ public class Trainer {
             epoch++;
             currentEpoach = epoch;
             prevError = error;
-            logger.info("threshold: "+errorThreshold+", error: "+error+"/"+avgError+", epoch:"+epoch);
+            logger.info("thr: "+errorThreshold+", er: "+error+"/"+avgError+", ep:"+epoch);
         }
     }
 

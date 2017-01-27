@@ -1,9 +1,11 @@
 package io.abdulklarapl.neural.element;
 
+import java.io.Serializable;
+
 /**
  * @author Patryk Szlagowski (abdulklarapl) <szlagowskipatryk@gmail.com>
  */
-public class Synapse {
+public class Synapse implements Serializable {
 
     private double weight;
     private Neuron source;
