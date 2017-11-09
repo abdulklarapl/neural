@@ -43,12 +43,11 @@ public class Trainer {
 
         while (avgError > errorThreshold) {
             error = backpropagation(input, output);
-//            avgError= error/epoch;
             avgError = Math.abs(prevError-error);
             epoch++;
             currentEpoach = epoch;
             prevError = error;
-            logger.info("thr: "+errorThreshold+", er: "+error+"/"+avgError+", ep:"+epoch);
+            logger.info("output: "+output.hashCode()+", thr: "+errorThreshold+", er: "+error+"/"+avgError+", ep:"+epoch);
         }
     }
 

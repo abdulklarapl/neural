@@ -1,5 +1,6 @@
 package io.abdulklarapl.neural.element;
 
+import io.abdulklarapl.neural.activator.ActivationFunction;
 import io.abdulklarapl.neural.activator.LinearActivationFunction;
 import io.abdulklarapl.neural.activator.SigmoidActivationFunction;
 import org.apache.log4j.Logger;
@@ -18,6 +19,8 @@ import java.util.stream.IntStream;
  * @author Patryk Szlagowski (abdulklarapl) <szlagowskipatryk@gmail.com>
  */
 public class Network implements Serializable {
+
+    private static Logger logger = Logger.getLogger(Network.class);
 
     private String name;
     private List<Layer> layers;
@@ -47,7 +50,20 @@ public class Network implements Serializable {
      * @param hiddenLayerSize
      */
     public Network(String name, int inputSize, int outputSize, int hiddenLayerSize) {
-        this(name, inputSize, outputSize, hiddenLayerSize, 1, true);
+        this(name, inputSize, outputSize, hiddenLayerSize, 1, true, SigmoidActivationFunction.class);
+    }
+
+    /**
+     * create network with given name, input size and one hidden layer
+     *
+     * @param name
+     * @param inputSize
+     * @param outputSize
+     * @param hiddenLayerSize
+     * @param activationFunctionClass
+     */
+    public Network(String name, int inputSize, int outputSize, int hiddenLayerSize, Class activationFunctionClass) {
+        this(name, inputSize, outputSize, hiddenLayerSize, 1, true, activationFunctionClass);
     }
 
     /**
@@ -59,8 +75,9 @@ public class Network implements Serializable {
      * @param hiddenLayerSize
      * @param hiddenLayers
      * @param bias
+     * @param activationFunctionClass
      */
-    public Network(String name, int inputSize, int outputSize, int hiddenLayerSize, int hiddenLayers, boolean bias) {
+    public Network(String name, int inputSize, int outputSize, int hiddenLayerSize, int hiddenLayers, boolean bias, Class activationFunctionClass) {
         this.name = name;
         layers = new ArrayList<>();
         IntStream.range(1, hiddenLayers + 3).forEach(index -> {
@@ -79,7 +96,14 @@ public class Network implements Serializable {
             }
             layer.setNeurons(
                     IntStream.range(0, size)
-                            .mapToObj(neuron -> new Neuron(new SigmoidActivationFunction()))
+                            .mapToObj(neuron -> {
+                                try {
+                                    return new Neuron((ActivationFunction) activationFunctionClass.newInstance());
+                                } catch (Exception e) {
+                                    logger.error(e.getMessage(), e);
+                                    return new Neuron(new SigmoidActivationFunction());
+                                }
+                            })
                             .collect(Collectors.toList())
             );
 
