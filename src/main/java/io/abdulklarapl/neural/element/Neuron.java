@@ -25,6 +25,7 @@ public class Neuron implements Serializable {
 
     public Neuron(ActivationFunction activationFunction, Long id) {
         this.activationFunction = activationFunction;
+        this.id = id;
     }
 
     public Neuron(ActivationFunction activationFunction, Long id, double output) {
