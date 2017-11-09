@@ -17,16 +17,18 @@ public class Neuron implements Serializable {
     private double derivative;
     private double sum;
     private double error;
+    private Long id;
 
     {
         synapses = new ArrayList<>();
     }
 
-    public Neuron(ActivationFunction activationFunction) {
+    public Neuron(ActivationFunction activationFunction, Long id) {
         this.activationFunction = activationFunction;
     }
 
-    public Neuron(ActivationFunction activationFunction, double output) {
+    public Neuron(ActivationFunction activationFunction, Long id, double output) {
+        this.id = id;
         this.activationFunction = activationFunction;
         this.output = output;
     }
@@ -75,5 +77,9 @@ public class Neuron implements Serializable {
 
     public double getError() {
         return error;
+    }
+
+    public Long getId() {
+        return id;
     }
 }

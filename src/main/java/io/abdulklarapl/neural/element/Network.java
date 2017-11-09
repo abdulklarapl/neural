@@ -98,10 +98,10 @@ public class Network implements Serializable {
                     IntStream.range(0, size)
                             .mapToObj(neuron -> {
                                 try {
-                                    return new Neuron((ActivationFunction) activationFunctionClass.newInstance());
+                                    return new Neuron((ActivationFunction) activationFunctionClass.newInstance(), Integer.valueOf(neuron).longValue());
                                 } catch (Exception e) {
                                     logger.error(e.getMessage(), e);
-                                    return new Neuron(new SigmoidActivationFunction());
+                                    return new Neuron(new SigmoidActivationFunction(), Integer.valueOf(neuron).longValue());
                                 }
                             })
                             .collect(Collectors.toList())
@@ -122,7 +122,7 @@ public class Network implements Serializable {
         }
         layers.forEach(layer -> {
             if (!layer.isOutput()) {
-                layer.setBias(new Neuron(new LinearActivationFunction(), 1));
+                layer.setBias(new Neuron(new LinearActivationFunction(), Integer.valueOf(layer.getNeurons().size()+1).longValue(), 1));
             }
         });
     }
