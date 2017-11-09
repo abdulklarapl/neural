@@ -5,7 +5,7 @@ My very first neural network implementation. It's time to dominate the world.
 
 1. download the repository
 2. insirde repository run `mvn clean package`
-3. inside repository run: `mvn install:install-file -Dfile=target/neural-1.0-SNAPSHOT.jar`
+3. inside repository run: `mvn install:install-file -Dfile=target/neural-1.0-SNAPSHOT.jar -DgroupId=io.abdulklarapl -DartifactId=neural -Dversion=1.0-SNAPSHOT -Dpackaging=jar`
 
 ## Usage
 
